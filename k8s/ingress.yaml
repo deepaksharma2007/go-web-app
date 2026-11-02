@@ -3,9 +3,11 @@ kind: Ingress
 metadata:
    name: go-web-app
    annotations:
-     nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClasName: nginx
+  #type: LoadBalancer
+  #loadBalancerClass: eks.amazonaws.com/nlb
+  ingressClassName: nginx
   rules:
   - host: go-web-app.local
     http:
@@ -14,6 +16,7 @@ spec:
        pathType: Prefix
        backend:
          service:
-           name: go-web-app
+           name: go-web-app-service
            port:
              number: 80
+
